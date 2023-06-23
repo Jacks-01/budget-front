@@ -1,13 +1,9 @@
-
-import { Admin, Resource, ListGuesser, EditGuesser, ShowGuesser } from 'react-admin';
-import { dataProvider } from './dataProvider';
+import '@cloudscape-design/global-styles/index.css';
+import Button from '@cloudscape-design/components/button';
 
 export const App = () => (
-    <Admin
-        dataProvider={dataProvider}
-	>
-        
-    </Admin>
+	<>
+		<h1>this is my budget app</h1>
+		<Button>Cloudscape button</Button>
+	</>
 );
-
-    
