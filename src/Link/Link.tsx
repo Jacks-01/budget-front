@@ -1,44 +1,50 @@
-import React from "react";
+import React, { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
-import { Button } from "@cloudscape-design/components";
-import { useState } from "react";
+import { Button } from '@cloudscape-design/components';
 
+import { usePlaidLink, PlaidLinkOnSuccess } from 'react-plaid-link';
 
-const SERVER = import.meta.env.VITE_SERVER
+const SERVER = import.meta.env.VITE_SERVER;
 interface props {
-    plaidLink: string
+	plaidLink: string;
 }
 
 const Link: React.FC<props> = (props) => {
-    const [link, setLink] = useState({});
-    const getLink = async () => {
-        let response = await axios.get(`${SERVER}/create_link_token`);
-        console.log(response.data);
-        setLink({ response })
-        
+	const [token, setToken] = useState<string | null>(null);
 
-    }
-    return ( 
-        <>
-            <Button onClick={getLink}>Get Link</Button>
-            <a>{props.plaidLink}</a>
-        </>
+	React.useEffect(() => {
+		const getLinkToken = async () => {
+			let response = await axios.get(`${SERVER}/create_link_token`);
+			console.log(response.data);
+			setToken(response.data.link_token);
+		};
+		getLinkToken();
+	}, []);
 
-     );
-}
- 
-// export default Link;
+	const onSuccess = useCallback<PlaidLinkOnSuccess>(
+		(publicToken, metadata) => {
+			// send public_token to your server
+			// https://plaid.com/docs/api/tokens/#token-exchange-flow
+			console.log(publicToken, metadata);
+		},
+		[]
+	);
 
-// // The usePlaidLink hook manages Plaid Link creation
-// // It does not return a destroy function;
-// // instead, on unmount it automatically destroys the Link instance
-// const config: PlaidLinkOptions = {
-//     onSuccess: (public_token, metadata) => {}
-//     onExit: (err, metadata) => {}
-//     onEvent: (eventName, metadata) => {}
-//     token: 'GENERATED_LINK_TOKEN',
-//     //required for OAuth; if not using OAuth, set to null or omit:
-//     receivedRedirectUri: window.location.href,
-//   };
-  
-//   const { open, exit, ready } = usePlaidLink(config);
+	const { open, ready } = usePlaidLink({
+		token,
+		onSuccess
+	});
+
+	return (
+		<>
+			<Button
+				onClick={() => open()}
+				disabled={!ready}>
+				Connect a bank account
+			</Button>
+			<a>{props.plaidLink}</a>
+		</>
+	);
+};
+
+export default Link;
