@@ -11,6 +11,8 @@ interface props {
 
 const Link: React.FC<props> = (props) => {
 	const [token, setToken] = useState<string | null>(null);
+    const [accessToken, setAccessToken] = useState<string | null>(null);
+    const [publicToken, setPublicToken] = useState<string | null>(null);
 
 	React.useEffect(() => {
 		const getLinkToken = async () => {
