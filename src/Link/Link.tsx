@@ -5,11 +5,8 @@ import { Button } from '@cloudscape-design/components';
 import { usePlaidLink, PlaidLinkOnSuccess } from 'react-plaid-link';
 
 const SERVER = import.meta.env.VITE_SERVER;
-interface props {
-	plaidLink: string;
-}
 
-const Link: React.FC<props> = (props) => {
+const Link: React.FC = () => {
 	const [token, setToken] = React.useState<string | null>(null);
 	const [publicToken, setPublicToken] = React.useState<string | null>(null);
 
