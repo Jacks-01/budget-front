@@ -49,7 +49,6 @@ const Link: React.FC = () => {
 				disabled={!ready}>
 				Connect a bank account
 			</Button>
-			<a>{props.plaidLink}</a>
 
 			<Button onClick={() => retryPublicToken(publicToken)}>
 				{' '}
