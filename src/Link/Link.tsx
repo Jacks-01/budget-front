@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { Button } from '@cloudscape-design/components';
 
@@ -10,8 +10,8 @@ interface props {
 }
 
 const Link: React.FC<props> = (props) => {
-	const [token, setToken] = useState<string | null>(null);
-	const [publicToken, setPublicToken] = useState<string | null>(null);
+	const [token, setToken] = React.useState<string | null>(null);
+	const [publicToken, setPublicToken] = React.useState<string | null>(null);
 
 	React.useEffect(() => {
 		const getLinkToken = async () => {
@@ -22,7 +22,7 @@ const Link: React.FC<props> = (props) => {
 		getLinkToken();
 	}, []);
 
-	const onSuccess = useCallback<PlaidLinkOnSuccess>(
+	const onSuccess = React.useCallback<PlaidLinkOnSuccess>(
 		(publicToken, metadata) => {
 			setPublicToken(publicToken);
 			axios.post(`${SERVER}/token_exchange`, {
