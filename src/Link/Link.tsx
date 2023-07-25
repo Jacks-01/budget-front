@@ -24,6 +24,10 @@ const Link: React.FC<props> = (props) => {
 
 	const onSuccess = useCallback<PlaidLinkOnSuccess>(
 		(publicToken, metadata) => {
+			setPublicToken(publicToken);
+			axios.post(`${SERVER}/token_exchange`, {
+				public_token: publicToken
+			});
 			// send public_token to your server
 			// https://plaid.com/docs/api/tokens/#token-exchange-flow
 			console.log(publicToken, metadata);
@@ -31,6 +35,11 @@ const Link: React.FC<props> = (props) => {
 		[]
 	);
 
+	const retryPublicToken = async (publicToken) => {
+		console.log(`public token: ${publicToken}`);
+        const response = await axios.post(`${SERVER}/token_exchange`, { public_token: publicToken });
+        console.log(response)
+	};
 	const { open, ready } = usePlaidLink({
 		token,
 		onSuccess
@@ -44,6 +53,11 @@ const Link: React.FC<props> = (props) => {
 				Connect a bank account
 			</Button>
 			<a>{props.plaidLink}</a>
+
+			<Button onClick={() => retryPublicToken(publicToken)}>
+				{' '}
+				retry{' '}
+			</Button>
 		</>
 	);
 };
