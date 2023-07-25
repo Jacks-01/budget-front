@@ -35,10 +35,10 @@ const Link: React.FC<props> = (props) => {
 		[]
 	);
 
-	const retryPublicToken = async (publicToken) => {
+	const retryPublicToken = async (publicToken: string) => {
 		console.log(`public token: ${publicToken}`);
         const response = await axios.post(`${SERVER}/token_exchange`, { public_token: publicToken });
-        console.log(response)
+        console.log('yo', response)
 	};
 	const { open, ready } = usePlaidLink({
 		token,
