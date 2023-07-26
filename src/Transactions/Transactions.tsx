@@ -4,6 +4,8 @@ import { Button } from '@cloudscape-design/components';
 const SERVER = import.meta.env.VITE_SERVER;
 
 const Transactions: React.FC = () => {
+
+    React.useState
     // React.useEffect(() => {
         
     // }, [])
