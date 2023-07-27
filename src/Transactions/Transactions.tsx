@@ -1,27 +1,70 @@
-import React from 'react';
-import axios from 'axios';
-import { Button } from '@cloudscape-design/components';
+import React from "react";
+import axios from "axios";
+import {
+  Button,
+  Table,
+  Box,
+  SpaceBetween,
+  Header,
+} from "@cloudscape-design/components";
+
+import {Transaction} from "plaid";
 const SERVER = import.meta.env.VITE_SERVER;
 
 const Transactions: React.FC = () => {
+  const [transactions, setTransactions] =
+    React.useState<Array<Transaction>>([]);
 
-    React.useState
-    // React.useEffect(() => {
-        
-    // }, [])
+  // React.useEffect(() => {
+  // }, [])
 
-    const transactions = async () => {
-        let response = await axios.get(`${SERVER}/transactions/get`);
-        console.log('transactions yo:', response.data);
-    }
+  const getAllTransactions = async () => {
+    const response = await axios.get(`${SERVER}/transactions/get`);
+    console.log("transactions yo:", response.data);
+    setTransactions(response.data);
+  };
 
-    return (
-        <>
-            <h1>Transactions Start Here</h1>
-            <Button onClick={() => transactions()}>get transactions</Button>
-            
-        </>
-    )
-}
+  return (
+    <>
+      <h1>Transactions Start Here</h1>
+      <Button onClick={() => getAllTransactions()}>get transactions</Button>
+
+      <Table
+        columnDefinitions={[
+          {
+            id: "variable",
+            header: "Variable name",
+            cell: item => item.date || "-",
+            sortingField: "name",
+            isRowHeader: true,
+          },
+          {
+            id: "alt",
+            header: "Text value",
+            cell: item => item.amount || "-",
+            sortingField: "alt",
+          },
+          {
+            id: "description",
+            header: "Description",
+            cell: item => item.name || "-",
+          },
+        ]}
+        items={transactions}
+        loadingText="Loading resources"
+        sortingDisabled
+        empty={
+          <Box margin={{vertical: "xs"}} textAlign="center" color="inherit">
+            <SpaceBetween size="m">
+              <b>No resources</b>
+              <Button>Create resource</Button>
+            </SpaceBetween>
+          </Box>
+        }
+        header={<Header> Simple table </Header>}
+      />
+    </>
+  );
+};
 
 export default Transactions;

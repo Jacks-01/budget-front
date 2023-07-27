@@ -12,7 +12,7 @@ const Link: React.FC = () => {
 
 	React.useEffect(() => {
 		const getLinkToken = async () => {
-			let response = await axios.get(`${SERVER}/create_link_token`);
+			const response = await axios.get(`${SERVER}/create_link_token`);
 			console.log(response.data);
 			setToken(response.data.link_token);
 		};
@@ -32,7 +32,7 @@ const Link: React.FC = () => {
 		[]
 	);
 
-	const retryPublicToken = async (publicToken: string) => {
+	const retryPublicToken = async (publicToken: string | null) => {
 		console.log(`public token: ${publicToken}`);
         const response = await axios.post(`${SERVER}/token_exchange`, { public_token: publicToken });
         console.log('yo', response)
