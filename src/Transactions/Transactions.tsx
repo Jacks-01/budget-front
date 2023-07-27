@@ -12,8 +12,9 @@ import {Transaction} from "plaid";
 const SERVER = import.meta.env.VITE_SERVER;
 
 const Transactions: React.FC = () => {
-  const [transactions, setTransactions] =
-    React.useState<Array<Transaction>>([]);
+  const [transactions, setTransactions] = React.useState<Array<Transaction>>(
+    [],
+  );
 
   // React.useEffect(() => {
   // }, [])
@@ -32,17 +33,17 @@ const Transactions: React.FC = () => {
       <Table
         columnDefinitions={[
           {
-            id: "variable",
-            header: "Variable name",
+            id: "date",
+            header: "Date",
             cell: item => item.date || "-",
             sortingField: "name",
             isRowHeader: true,
           },
           {
-            id: "alt",
-            header: "Text value",
+            id: "amount",
+            header: "Amount",
             cell: item => item.amount || "-",
-            sortingField: "alt",
+            sortingField: "amount",
           },
           {
             id: "description",
