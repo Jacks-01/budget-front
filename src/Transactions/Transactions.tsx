@@ -20,9 +20,20 @@ const Transactions: React.FC = () => {
   // }, [])
 
   const getAllTransactions = async () => {
+    const localTransactions: string | null =
+      localStorage.getItem("Transaction Data");
+
+    if (localTransactions) {
+      const parsedTransactions: Array<Transaction> =
+        JSON.parse(localTransactions);
+      setTransactions(parsedTransactions);
+      return;
+    }
+
     const response = await axios.get(`${SERVER}/transactions/get`);
     console.log("transactions yo:", response.data);
     setTransactions(response.data);
+    localStorage.setItem("Transaction Data", JSON.stringify(response.data));
   };
 
   return (
