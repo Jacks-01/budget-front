@@ -1,14 +1,7 @@
 import React from "react";
 import axios from "axios";
-import {
-  Button,
-  Table,
-  Box,
-  SpaceBetween,
-  Header,
-} from "@cloudscape-design/components";
-
 import {Transaction} from "plaid";
+import {Button} from "@chakra-ui/button";
 const SERVER = import.meta.env.VITE_SERVER;
 
 const Transactions: React.FC = () => {
@@ -40,41 +33,6 @@ const Transactions: React.FC = () => {
     <>
       <h1>Transactions Start Here</h1>
       <Button onClick={() => getAllTransactions()}>get transactions</Button>
-
-      <Table
-        columnDefinitions={[
-          {
-            id: "date",
-            header: "Date",
-            cell: item => item.date || "-",
-            sortingField: "name",
-            isRowHeader: true,
-          },
-          {
-            id: "amount",
-            header: "Amount",
-            cell: item => item.amount || "-",
-            sortingField: "amount",
-          },
-          {
-            id: "description",
-            header: "Description",
-            cell: item => item.name || "-",
-          },
-        ]}
-        items={transactions}
-        loadingText="Loading resources"
-        sortingDisabled
-        empty={
-          <Box margin={{vertical: "xs"}} textAlign="center" color="inherit">
-            <SpaceBetween size="m">
-              <b>No resources</b>
-              <Button>Create resource</Button>
-            </SpaceBetween>
-          </Box>
-        }
-        header={<Header> Simple table </Header>}
-      />
     </>
   );
 };

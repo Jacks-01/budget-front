@@ -1,4 +1,3 @@
-import '@cloudscape-design/global-styles/index.css';
 import Link from './Link/Link';
 import React from 'react';
 import Transactions from './Transactions/Transactions';
