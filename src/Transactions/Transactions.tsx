@@ -2,6 +2,17 @@ import React from "react";
 import axios from "axios";
 import {Transaction} from "plaid";
 import {Button} from "@chakra-ui/button";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from "@chakra-ui/react";
 const SERVER = import.meta.env.VITE_SERVER;
 
 const Transactions: React.FC = () => {
@@ -29,10 +40,33 @@ const Transactions: React.FC = () => {
     localStorage.setItem("Transaction Data", JSON.stringify(response.data));
   };
 
+  const rows = transactions.map(transaction => (
+    <tr key={Math.random()}>
+      <td>{transaction.date}</td>
+      <td>{transaction.amount}</td>
+      <td>{transaction.name}</td>
+    </tr>
+  ));
+
   return (
     <>
       <h1>Transactions Start Here</h1>
       <Button onClick={() => getAllTransactions()}>get transactions</Button>
+
+      <TableContainer>
+        <Table variant="striped">
+          {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+          <Thead>
+            <Tr>
+              <Th>Date</Th>
+              <Th>Description</Th>
+              <Th isNumeric>Amount</Th>
+            </Tr>
+          </Thead>
+          <Tbody>{rows}</Tbody>
+          <Tfoot></Tfoot>
+        </Table>
+      </TableContainer>
     </>
   );
 };
