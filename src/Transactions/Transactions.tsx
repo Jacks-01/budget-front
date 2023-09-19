@@ -43,8 +43,8 @@ const Transactions: React.FC = () => {
   const rows = transactions.map(transaction => (
     <tr key={Math.random()}>
       <td>{transaction.date}</td>
-      <td>{transaction.amount}</td>
       <td>{transaction.name}</td>
+      <td>{transaction.amount}</td>
     </tr>
   ));
 
@@ -53,7 +53,7 @@ const Transactions: React.FC = () => {
       <h1>Transactions Start Here</h1>
       <Button onClick={() => getAllTransactions()}>get transactions</Button>
 
-      <TableContainer>
+      <TableContainer width={1400}>
         <Table variant="striped">
           {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
           <Thead>
