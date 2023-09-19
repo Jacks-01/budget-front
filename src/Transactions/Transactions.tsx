@@ -12,6 +12,7 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Center,
 } from "@chakra-ui/react";
 const SERVER = import.meta.env.VITE_SERVER;
 
@@ -52,21 +53,22 @@ const Transactions: React.FC = () => {
     <>
       <h1>Transactions Start Here</h1>
       <Button onClick={() => getAllTransactions()}>get transactions</Button>
-
-      <TableContainer width={1400}>
-        <Table variant="striped">
-          {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-          <Thead>
-            <Tr>
-              <Th>Date</Th>
-              <Th>Description</Th>
-              <Th isNumeric>Amount</Th>
-            </Tr>
-          </Thead>
-          <Tbody>{rows}</Tbody>
-          <Tfoot></Tfoot>
-        </Table>
-      </TableContainer>
+      <Center>
+        <TableContainer>
+          <Table variant="striped">
+            {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+            <Thead>
+              <Tr>
+                <Th>Date</Th>
+                <Th>Description</Th>
+                <Th isNumeric>Amount</Th>
+              </Tr>
+            </Thead>
+            <Tbody>{rows}</Tbody>
+            <Tfoot></Tfoot>
+          </Table>
+        </TableContainer>
+      </Center>
     </>
   );
 };
