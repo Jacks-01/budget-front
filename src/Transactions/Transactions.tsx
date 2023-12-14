@@ -2,18 +2,6 @@ import React from "react";
 import axios from "axios";
 import {Transaction} from "plaid";
 import {Button} from "@chakra-ui/button";
-// import {
-//   Table,
-//   Thead,
-//   Tbody,
-//   Tfoot,
-//   Tr,
-//   Th,
-//   Td,
-//   TableCaption,
-//   TableContainer,
-//   Center,
-// } from "@chakra-ui/react";
 import TransactionsGrid from "./TransactionsGrid";
 const SERVER = import.meta.env.VITE_SERVER;
 
