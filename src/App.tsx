@@ -3,6 +3,8 @@ import React from 'react';
 import Transactions from './Transactions/Transactions';
 import Nav from './Navbar/Navbar';
 
+//! Uncomment Link to initiate token exchange and recieve data
+
 export const App = () => (
 	<>
 		<Nav/>
