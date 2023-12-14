@@ -38,6 +38,9 @@ export default function Nav() {
                 <Link to="/transactions">Transactions</Link>
               </Button>
               <Button>
+                <Link to="/dashboard">Dashboard</Link>
+              </Button>
+              <Button>
                 <Link to="/link">Link</Link>
               </Button>
 
