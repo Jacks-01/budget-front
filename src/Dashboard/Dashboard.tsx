@@ -35,7 +35,7 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const summarizeData = (originalData: Array<pieData>): Array<object> => {
-    const summarizedData: object[] = [];
+    const summarizedData: pieData[] = [];
 
     // Create a map to aggregate values by label
     const dataMap = new Map();
@@ -50,7 +50,7 @@ const Dashboard: React.FC = () => {
       }
     });
 
-    // Push the set to the returned array
+    // Push the map entries to the summary array
     dataMap.forEach((value, label) => {
       summarizedData.push({id: label, label, value});
     });
