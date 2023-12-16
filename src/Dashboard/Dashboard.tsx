@@ -1,29 +1,40 @@
-import React, {useEffect} from "react";
+import React from "react";
 import PieChart from "./PieChart";
+import {Transaction} from "plaid";
 
 const Dashboard: React.FC = () => {
   const [pieData, setPieData] = React.useState<Array<object>>([{}]);
 
+  type pieData = {
+    id: string;
+    label: string;
+    value: number;
+  };
+
   React.useEffect(() => {
-    const localTransactions: string | null = localStorage.getItem("Trans Data");
+    const localTransactions: string | null =
+      localStorage.getItem("Transaction Data");
 
     if (localTransactions) {
       const parsedTransactions = JSON.parse(localTransactions);
-      const newPieData = parsedTransactions.map(element => {
-        const data = {
-          id: element.Category,
-          label: element.Category,
-          value: parseInt(element.Amount),
-        };
-        return data;
-      });
-      const summarizedPieData = summarizeData(newPieData);
+      const formattedTransactions = parsedTransactions.map(
+        (transaction: Transaction) => {
+          const data: pieData = {
+            id: transaction.category[0],
+            label: transaction.category[0],
+            value: transaction.amount,
+          };
+          return data;
+        },
+      );
+
+      const summarizedPieData = summarizeData(formattedTransactions);
       setPieData(summarizedPieData);
       return;
     }
   }, []);
 
-  const summarizeData = (originalData: Array<object>, threshold = 1): Array<object> => {
+  const summarizeData = (originalData: Array<pieData>): Array<object> => {
     const summarizedData: object[] = [];
 
     // Create a map to aggregate values by label
@@ -39,11 +50,9 @@ const Dashboard: React.FC = () => {
       }
     });
 
-    // Filter out entries below the threshold
+    // Push the set to the returned array
     dataMap.forEach((value, label) => {
-      if (value >= threshold) {
-        summarizedData.push({id: label, label, value});
-      }
+      summarizedData.push({id: label, label, value});
     });
 
     return summarizedData;
