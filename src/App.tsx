@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import Home from "./Home/Home";
 import NotFound from "./NotFound/NotFound";
-import Dashboard from "./Dashboard/Dashboard";
+import Dashboard, { dashboardLoader } from "./Dashboard/Dashboard";
 import RootLayout from "./layouts/RootLayout";
 
 const router = createBrowserRouter(
@@ -19,7 +19,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/transactions" element={<Transactions />} />
       <Route path="/link" element={<Link />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} loader={dashboardLoader}/>
       <Route path="*" element={<NotFound />} />
     </Route>,
   ),
