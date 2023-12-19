@@ -1,6 +1,6 @@
 import Link from "./Link/Link";
 import React from "react";
-import Transactions from "./Transactions/Transactions";
+import Transactions, { transactionLoader } from "./Transactions/Transactions";
 import Nav from "./Navbar/Navbar";
 import {
   Route,
@@ -17,7 +17,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<RootLayout/>}>
       <Route index element={<Home />} />
-      <Route path="/transactions" element={<Transactions />} />
+      <Route path="/transactions" element={<Transactions />} loader={transactionLoader}/>
       <Route path="/link" element={<Link />} />
       <Route path="/dashboard" element={<Dashboard />} loader={dashboardLoader}/>
       <Route path="*" element={<NotFound />} />

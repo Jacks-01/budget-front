@@ -15,11 +15,11 @@ export const dashboardLoader = (): object => {
   const summarizedTransactionData = summarizeTransactionData(
     formattedTransactionData,
   );
-  return {summarizedTransactionData};
+  return summarizedTransactionData;
 };
 
 const Dashboard: React.FC = () => {
-  const {summarizedTransactionData} = useLoaderData();
+  const summarizedTransactionData = useLoaderData() as Array<object>;
   const [pieData, setPieData] = React.useState<Array<object>>([{}]);
   console.log("dashboardLoader data:", summarizedTransactionData);
 

@@ -8,29 +8,26 @@ interface Props {
   transactions?: Transaction[];
 }
 
-const TransactionsGrid: React.FC<Props> = ({transactions}) => {
-  // const [columns, setColumns] = useState([
-  //     { field: 'Date' },
-  //     { field: 'Description' },
-  //     { field: 'Amount' }
-  // ]);
-
+const TransactionsGrid: React.FC<Props> = ({ transactions }) => {
+  
   const columns: object[] = [
     {field: "Date"},
     {field: "Description"},
     {field: "Amount"},
     {field: "Category"},
   ];
-  const transactionData = transactions?.map(transaction => {
-    return {
-      Date: transaction.date,
-      Description: transaction.name,
-      Amount: transaction.amount,
-      Category: transaction.category[0],
-    };
-  });
 
-  localStorage.setItem("Trans Data", JSON.stringify(transactionData));
+    const transactionData = transactions?.map(transaction => {
+      return {
+        Date: transaction.date,
+        Description: transaction.name,
+        Amount: transaction.amount,
+        Category: transaction.category?.toString(),
+      };
+    });
+
+
+ 
 
   return (
     <div className="ag-theme-quartz" style={{height: 500, width: "auto"}}>

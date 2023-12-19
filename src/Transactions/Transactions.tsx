@@ -3,9 +3,18 @@ import axios from "axios";
 import {Transaction} from "plaid";
 import {Button} from "@chakra-ui/button";
 import TransactionsGrid from "./TransactionsGrid";
+import {fetchLocalStorageData} from "../Helpers/Helpers";
+import {useLoaderData} from "react-router-dom";
 const SERVER = import.meta.env.VITE_SERVER;
 
+export const transactionLoader = () => {
+  const transactionData = fetchLocalStorageData("Transaction Data");
+  return transactionData;
+};
+
 const Transactions: React.FC = () => {
+  const transactionData = useLoaderData() as Array<Transaction>;
+  console.log("transactionsLoader data:", transactionData);
   const [transactions, setTransactions] = React.useState<Array<Transaction>>(
     [],
   );
@@ -14,6 +23,7 @@ const Transactions: React.FC = () => {
     const localTransactions: string | null =
       localStorage.getItem("Transaction Data");
 
+    //* If there is transaction data in local storage, grab it
     if (localTransactions) {
       const parsedTransactions: Array<Transaction> =
         JSON.parse(localTransactions);
@@ -21,8 +31,7 @@ const Transactions: React.FC = () => {
       return;
     }
 
-    
-
+    //* Otherwise make a request to the server, then stash it in local storage
     const response = await axios.get(`${SERVER}/transactions/get`);
     console.log("transactions yo:", response.data);
     setTransactions(response.data);
@@ -31,38 +40,12 @@ const Transactions: React.FC = () => {
 
   return (
     <>
-      <h1>Transactions Start Here</h1>
+      <h1>Transactions Page</h1>
       <Button onClick={() => getAllTransactions()}>get transactions</Button>
 
-      <TransactionsGrid transactions={transactions} />
+      <TransactionsGrid transactions={transactionData} />
     </>
   );
 };
 
 export default Transactions;
-
-// const rows = transactions.map(transaction => (
-//   <tr key={Math.random()}>
-//     <td>{transaction.date}</td>
-//     <td>{transaction.name}</td>
-//     <td>{transaction.amount}</td>
-//   </tr>
-// ));
-
-{
-  /* <Center>
-<TableContainer>
-  <Table variant="striped">
-    <Thead>
-      <Tr>
-        <Th>Date</Th>
-        <Th>Description</Th>
-        <Th isNumeric>Amount</Th>
-      </Tr>
-    </Thead>
-    <Tbody>{rows}</Tbody>
-    <Tfoot></Tfoot>
-  </Table>
-</TableContainer>
-</Center> */
-}
