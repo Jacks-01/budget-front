@@ -11,7 +11,7 @@ export const formatTransactionData = (data: Array<Transaction>): Array<pieData> 
     const data: pieData = {
       id: transaction.category[0],
       label: transaction.category[0],
-      value: transaction.amount,
+      value: Math.round(transaction.amount),
     };
     return data;
   });
