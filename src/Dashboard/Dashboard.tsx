@@ -9,6 +9,8 @@ import {
 } from "../Helpers/DashboardHelpers";
 import {Transaction} from "plaid";
 import { Button } from "@chakra-ui/react";
+import DateInput from "./DateRangePicker";
+import DateRangePicker from "./DateRangePicker";
 
 //* loader
 export const dashboardLoader = (): object => {
@@ -34,9 +36,11 @@ const Dashboard: React.FC = () => {
     setTransactions(transactionData);
   }, []);
 
-  const filterTransactions = (data: Array<Transaction>) => {
-    const startDate = new Date('1-01-2023')
-    const endDate = new Date('6-01-2023')
+  const filterTransactions = (startDateString: string, endDateString: string) => {
+    const startDate = new Date(startDateString)
+    const endDate = new Date(endDateString)
+    const data = transactions;
+
     const filteredData = filterObjectsByDateRange(data, startDate, endDate);
     console.log(filteredData);
     setTransactions(filteredData)
@@ -48,7 +52,8 @@ const Dashboard: React.FC = () => {
   return (
     <>
       <h1>Dashboard</h1>
-      <Button onClick={() => filterTransactions(transactions)}>Filter Transactions</Button>
+      {/* <Button onClick={() => filterTransactions(transactions)}>Filter Transactions</Button> */}
+      <DateRangePicker onDateChange={filterTransactions}/>
       <PieChart data={pieData} />
     </>
   );
