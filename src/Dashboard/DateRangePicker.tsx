@@ -1,6 +1,5 @@
 import {Button, Input} from "@chakra-ui/react";
 import * as React from "react";
-import "react-datepicker/dist/react-datepicker.css";
 
 interface DateRangePickerProps {
   onDateChange: (startDate: string, endDate: string) => void;

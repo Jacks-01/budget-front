@@ -44,7 +44,7 @@ export const summarizeTransactionData = (
   return summarizedData;
 };
 
-export const filterObjectsByDateRange = (data: Array<Transaction>, startDate:Date , endDate:Date) => {
+export const filterObjectsByDateRange = (data: Transaction[], startDate:Date , endDate:Date): Transaction[] => {
     return data.filter(item => {
       const itemDate = new Date(item.date);
       return itemDate >= startDate && itemDate <= endDate;

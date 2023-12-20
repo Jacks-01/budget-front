@@ -8,8 +8,7 @@ import {
   summarizeTransactionData,
 } from "../Helpers/DashboardHelpers";
 import {Transaction} from "plaid";
-import { Button } from "@chakra-ui/react";
-import DateInput from "./DateRangePicker";
+import {Button} from "@chakra-ui/react";
 import DateRangePicker from "./DateRangePicker";
 
 //* loader
@@ -24,36 +23,50 @@ export const dashboardLoader = (): object => {
 };
 
 const Dashboard: React.FC = () => {
+  //* Loader Data
   const {summarizedTransactionData, transactionData} = useLoaderData();
+
+  //* State - Mutable. Change this to affect data on the dashboard
   const [pieData, setPieData] = React.useState<Array<object>>([{}]);
   const [transactions, setTransactions] = React.useState<Array<Transaction>>(
     [],
   );
-  console.log("dashboardLoader data:", summarizedTransactionData);
 
+  //* When the page loads, use the loader data to initialize state
   React.useEffect(() => {
     setPieData(summarizedTransactionData);
     setTransactions(transactionData);
   }, []);
 
-  const filterTransactions = (startDateString: string, endDateString: string) => {
-    const startDate = new Date(startDateString)
-    const endDate = new Date(endDateString)
-    const data = transactions;
+  //* Filters the transaction data, then reformats and summarizes
+  const filterTransactions = (
+    startDateString: string,
+    endDateString: string,
+  ) => {
+    //* Convert our date strings to date objects
+    const startDate = new Date(startDateString);
+    const endDate = new Date(endDateString);
+    const data = transactionData;
 
     const filteredData = filterObjectsByDateRange(data, startDate, endDate);
-    console.log(filteredData);
-    setTransactions(filteredData)
-    const updatedPie = summarizeTransactionData(formatTransactionData(filteredData))
+    setTransactions(filteredData);
+    const updatedPie = summarizeTransactionData(
+      formatTransactionData(filteredData),
+    );
     setPieData(updatedPie);
   };
 
+  //* Resets state back to its initial data
+  const resetFilter = () => {
+    setTransactions(transactionData);
+    setPieData(summarizedTransactionData);
+  };
 
   return (
     <>
       <h1>Dashboard</h1>
-      {/* <Button onClick={() => filterTransactions(transactions)}>Filter Transactions</Button> */}
-      <DateRangePicker onDateChange={filterTransactions}/>
+      <DateRangePicker onDateChange={filterTransactions} />
+      <Button onClick={resetFilter}>Reset Filter</Button>
       <PieChart data={pieData} />
     </>
   );
