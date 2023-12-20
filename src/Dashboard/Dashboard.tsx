@@ -35,8 +35,8 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const filterTransactions = (data: Array<Transaction>) => {
-    const startDate = new Date('7-01-2023')
-    const endDate = new Date('7-30-2023')
+    const startDate = new Date('1-01-2023')
+    const endDate = new Date('6-01-2023')
     const filteredData = filterObjectsByDateRange(data, startDate, endDate);
     console.log(filteredData);
     setTransactions(filteredData)
