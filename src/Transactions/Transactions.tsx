@@ -14,10 +14,10 @@ export const transactionLoader = () => {
 
 const Transactions: React.FC = () => {
   const transactionData = useLoaderData() as Array<Transaction>;
-  console.log("transactionsLoader data:", transactionData);
   const [transactions, setTransactions] = React.useState<Array<Transaction>>(
     [],
   );
+
 
   const getAllTransactions = async () => {
     const localTransactions: string | null =

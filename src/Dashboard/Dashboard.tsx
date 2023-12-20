@@ -3,9 +3,12 @@ import PieChart from "./PieChart";
 import {fetchLocalStorageData} from "../Helpers/Helpers";
 import {useLoaderData} from "react-router-dom";
 import {
+  filterObjectsByDateRange,
   formatTransactionData,
   summarizeTransactionData,
 } from "../Helpers/DashboardHelpers";
+import {Transaction} from "plaid";
+import { Button } from "@chakra-ui/react";
 
 //* loader
 export const dashboardLoader = (): object => {
@@ -15,21 +18,37 @@ export const dashboardLoader = (): object => {
   const summarizedTransactionData = summarizeTransactionData(
     formattedTransactionData,
   );
-  return summarizedTransactionData;
+  return {transactionData, summarizedTransactionData};
 };
 
 const Dashboard: React.FC = () => {
-  const summarizedTransactionData = useLoaderData() as Array<object>;
+  const {summarizedTransactionData, transactionData} = useLoaderData();
   const [pieData, setPieData] = React.useState<Array<object>>([{}]);
+  const [transactions, setTransactions] = React.useState<Array<Transaction>>(
+    [],
+  );
   console.log("dashboardLoader data:", summarizedTransactionData);
 
   React.useEffect(() => {
     setPieData(summarizedTransactionData);
+    setTransactions(transactionData);
   }, []);
+
+  const filterTransactions = (data: Array<Transaction>) => {
+    const startDate = new Date('7-01-2023')
+    const endDate = new Date('7-30-2023')
+    const filteredData = filterObjectsByDateRange(data, startDate, endDate);
+    console.log(filteredData);
+    setTransactions(filteredData)
+    const updatedPie = summarizeTransactionData(formatTransactionData(filteredData))
+    setPieData(updatedPie);
+  };
+
 
   return (
     <>
       <h1>Dashboard</h1>
+      <Button onClick={() => filterTransactions(transactions)}>Filter Transactions</Button>
       <PieChart data={pieData} />
     </>
   );
