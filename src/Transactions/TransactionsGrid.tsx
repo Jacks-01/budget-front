@@ -11,7 +11,7 @@ interface Props {
 
 const TransactionsGrid: React.FC<Props> = ({transactions}) => {
   const { colorMode } = useColorMode();
-  let gridTheme = colorMode === 'light' ? 'ag-theme-quartz' : 'ag-theme-quartz-dark'
+  const gridTheme = colorMode === 'light' ? 'ag-theme-quartz' : 'ag-theme-quartz-dark'
 
   const columns: object[] = [
     {field: "Date"},
