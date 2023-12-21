@@ -15,9 +15,9 @@ const TransactionsGrid: React.FC<Props> = ({transactions}) => {
 
   const columns: object[] = [
     {field: "Date"},
-    {field: "Description"},
-    {field: "Amount"},
-    {field: "Category"},
+    {field: "Description", flex: 3},
+    {field: "Amount", flex: 1},
+    {field: "Category", flex: 1},
   ];
 
   const transactionData = transactions?.map(transaction => {
@@ -31,7 +31,7 @@ const TransactionsGrid: React.FC<Props> = ({transactions}) => {
 
   return (
     <div className={gridTheme} style={{height: 500, width: "auto"}}>
-      <AgGridReact rowData={transactionData} columnDefs={columns} />
+      <AgGridReact rowData={transactionData} columnDefs={columns}/>
     </div>
   );
 };
