@@ -12,13 +12,14 @@ import Home from "./Home/Home";
 import NotFound from "./NotFound/NotFound";
 import Dashboard, { dashboardLoader } from "./Dashboard/Dashboard";
 import RootLayout from "./layouts/RootLayout";
+import Account from "./Account/Account";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<RootLayout/>}>
       <Route index element={<Home />} />
       <Route path="/transactions" element={<Transactions />} loader={transactionLoader}/>
-      <Route path="/link" element={<Link />} />
+      <Route path="/account" element={<Account/>} />
       <Route path="/dashboard" element={<Dashboard />} loader={dashboardLoader}/>
       <Route path="*" element={<NotFound />} />
     </Route>,

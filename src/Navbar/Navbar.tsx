@@ -40,9 +40,9 @@ export default function Nav() {
               <Button>
                 <Link to="/dashboard">Dashboard</Link>
               </Button>
-              <Button>
+              {/* <Button>
                 <Link to="/link">Link</Link>
-              </Button>
+              </Button> */}
 
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
@@ -74,8 +74,9 @@ export default function Nav() {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Your Servers</MenuItem>
-                  <MenuItem>Account Settings</MenuItem>
+                  <MenuItem>
+                    <Link to="/account">Account Settings</Link>
+                  </MenuItem>
                   <MenuItem>Logout</MenuItem>
                 </MenuList>
               </Menu>

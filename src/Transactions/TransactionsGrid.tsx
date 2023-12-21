@@ -30,7 +30,7 @@ const TransactionsGrid: React.FC<Props> = ({transactions}) => {
   });
 
   return (
-    <div className={gridTheme} style={{height: 500, width: "auto"}}>
+    <div className={gridTheme} style={{height: '525px', width: "auto"}}>
       <AgGridReact rowData={transactionData} columnDefs={columns}/>
     </div>
   );
