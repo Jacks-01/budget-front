@@ -83,7 +83,7 @@ const Dashboard: React.FC = () => {
         </Box>
 
         <Box m={4}>
-          <StatGroup gap={30} width={400}>
+          <StatGroup gap={30} width={400} textColor={"black"}>
             <Stat p={4} bgColor={"green.100"} borderRadius={12}>
               <StatLabel>
                 <Text fontSize={16}>Wk. Spending</Text>
