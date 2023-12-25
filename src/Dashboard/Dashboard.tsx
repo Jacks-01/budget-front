@@ -8,7 +8,7 @@ import {
   summarizeTransactionData,
 } from "../Helpers/DashboardHelpers";
 import {Transaction} from "plaid";
-import {Button} from "@chakra-ui/react";
+import {Box, Button} from "@chakra-ui/react";
 import DateRangePicker from "./DateRangePicker";
 
 //* loader
@@ -64,9 +64,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <h1>Dashboard</h1>
-      <DateRangePicker onDateChange={filterTransactions} />
-      <Button onClick={resetFilter}>Reset Filter</Button>
+      <Box m={4} width={300}>
+        <DateRangePicker onDateChange={filterTransactions} onReset={resetFilter}/>
+      </Box>
       <PieChart data={pieData} />
     </>
   );
