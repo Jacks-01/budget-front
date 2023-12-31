@@ -40,6 +40,9 @@ export default function Nav() {
               <Button>
                 <Link to="/dashboard">Dashboard</Link>
               </Button>
+              <Button>
+                <Link to="/budget">Budget</Link>
+              </Button>
               {/* <Button>
                 <Link to="/link">Link</Link>
               </Button> */}
