@@ -18,11 +18,9 @@ const Transactions: React.FC = () => {
     [],
   );
 
-
   const getAllTransactions = async () => {
     const localTransactions: string | null =
-      localStorage.getItem("Transaction Data");
-
+    localStorage.getItem("Transaction Data");
     //* If there is transaction data in local storage, grab it
     if (localTransactions) {
       const parsedTransactions: Array<Transaction> =
@@ -42,8 +40,9 @@ const Transactions: React.FC = () => {
     <>
       <h1>Transactions Page</h1>
       <Button onClick={() => getAllTransactions()}>get transactions</Button>
-
-      <TransactionsGrid transactions={transactionData} />
+      {transactionData.length > 0 && (
+        <TransactionsGrid transactions={transactionData} />
+      )}
     </>
   );
 };

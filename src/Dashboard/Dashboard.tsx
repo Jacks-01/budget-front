@@ -109,7 +109,9 @@ const Dashboard: React.FC = () => {
         </Box>
       </Box>
 
-      <PieChart data={pieData} />
+      <Box width={"80%"}>
+        <PieChart data={pieData} />
+      </Box>
     </>
   );
 };
