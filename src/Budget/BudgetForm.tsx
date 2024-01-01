@@ -9,7 +9,11 @@ import {
 import React from "react";
 import {Form} from "react-router-dom";
 
-interface BudgetFormProps {}
+interface BudgetFormProps { }
+
+//TODO: Add a success alert when a new category is submitted
+
+//TODO: Submit the form data to local storage
 
 const BudgetForm: React.FC<BudgetFormProps> = () => {
   return (

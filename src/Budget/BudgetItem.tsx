@@ -3,6 +3,8 @@ import React from "react";
 
 interface BudgetItemProps { }
 
+//TODO: Convert hardcoded values to props to dyanmically display the items from local storage.
+
 //TODO: Add an accordion inside of the card to show which items contributed to the progress bar
 
 const BudgetItem: React.FC<BudgetItemProps> = () => {
