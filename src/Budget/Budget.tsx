@@ -8,8 +8,6 @@ import BudgetItem from "./BudgetItem";
 const Budget: React.FC = () => {
   return (
     <>
-      <Heading m={5}>Add spending categories to your budget!</Heading>
-
       <Box width={500} m={10}>
         <BudgetForm />
       </Box>

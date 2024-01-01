@@ -15,7 +15,7 @@ const BudgetForm: React.FC<BudgetFormProps> = () => {
   return (
     <>
       <Heading as={"h2"} size={"lg"} mb={4}>
-        Budget Form
+        Add a new item
       </Heading>
 
       <Form method="post">
@@ -31,7 +31,7 @@ const BudgetForm: React.FC<BudgetFormProps> = () => {
         </FormControl>
 
         <Button type="submit" variant={"outline"} colorScheme="green" mt={8}>
-          Submit
+          Add
         </Button>
       </Form>
     </>
