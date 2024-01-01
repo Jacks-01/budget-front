@@ -24,6 +24,38 @@ const BudgetItem: React.FC<BudgetItemProps> = () => {
           />
         </CardBody>
       </Card>
+      <Card w={800} m={10}>
+        <CardBody>
+          <Box display={"flex"} flexDir={"row"}>
+            <Text>Pet</Text>
+            <Text ml={"auto"}>$50.00</Text>
+          </Box>
+          <Progress
+            mt={4}
+            value={15}
+            max={50}
+            colorScheme="green"
+            hasStripe
+            borderRadius={4}
+          />
+        </CardBody>
+      </Card>
+      <Card w={800} m={10}>
+        <CardBody>
+          <Box display={"flex"} flexDir={"row"}>
+            <Text>Home Improvement</Text>
+            <Text ml={"auto"}>$150.00</Text>
+          </Box>
+          <Progress
+            mt={4}
+            value={120}
+            max={150}
+            colorScheme="green"
+            hasStripe
+            borderRadius={4}
+          />
+        </CardBody>
+      </Card>
     </>
   );
 };
