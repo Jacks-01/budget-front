@@ -1,10 +1,7 @@
 import { Transaction } from "plaid";
+import { pieData } from "../Types";
 
-type pieData = {
-  id: string;
-  label: string;
-  value: number;
-};
+
 
 export const formatTransactionData = (data: Array<Transaction>): Array<pieData> => {
   const formattedTransactions = data.map((transaction: Transaction) => {

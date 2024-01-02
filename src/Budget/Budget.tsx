@@ -44,7 +44,7 @@ const Budget: React.FC = () => {
 
   React.useEffect(() => {
     setBudget(budgetData);
-  }, []);
+  });
   return (
     <>
       <Box width={500} m={10}>
