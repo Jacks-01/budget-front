@@ -10,7 +10,7 @@ import {useLoaderData} from "react-router-dom";
 export const budgetLoader = () => {
   const budgetData: object[] = fetchLocalStorageData("Budget");
   console.log("this is our budget:", budgetData);
-  return budgetData;
+  return {budgetData};
 };
 
 export const budgetAction = async ({request}) => {
@@ -26,9 +26,12 @@ export const budgetAction = async ({request}) => {
   if (Object.keys(localStorageBudget).length === 0) {
     localStorage.setItem("Budget", JSON.stringify([budgetItem]));
   } else {
-      const updatedBudget = JSON.parse(localStorage.getItem("Budget"));
-      console.log('updatedBudget', updatedBudget)
-    localStorage.setItem("Budget", JSON.stringify([budgetItem, ...updatedBudget]));
+    const updatedBudget = JSON.parse(localStorage.getItem("Budget"));
+    console.log("updatedBudget", updatedBudget);
+    localStorage.setItem(
+      "Budget",
+      JSON.stringify([budgetItem, ...updatedBudget]),
+    );
   }
 
   return data;
@@ -38,6 +41,10 @@ const Budget: React.FC = () => {
   const {budgetData} = useLoaderData();
   const [budget, setBudget] = React.useState<Array<object>>([]);
   // setBudget(budgetData);
+
+  React.useEffect(() => {
+    setBudget(budgetData);
+  }, []);
   return (
     <>
       <Box width={500} m={10}>
@@ -46,7 +53,7 @@ const Budget: React.FC = () => {
 
       <Divider />
 
-      <BudgetItem />
+      <BudgetItem budgetData={budget} />
     </>
   );
 };

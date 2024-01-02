@@ -1,15 +1,16 @@
 import {Box, Card, CardBody, Progress, Text} from "@chakra-ui/react";
 import React from "react";
 
-interface BudgetItemProps { 
-
+interface BudgetItemProps {
+  budgetData: Array<object>;
 }
 
 //TODO: Convert hardcoded values to props to dyanmically display the items from local storage.
 
 //TODO: Add an accordion inside of the card to show which items contributed to the progress bar
 
-const BudgetItem: React.FC<BudgetItemProps> = () => {
+const BudgetItem: React.FC<BudgetItemProps> = ({budgetData}) => {
+  console.log(budgetData);
   return (
     <>
       <Card w={800} m={10}>
@@ -60,6 +61,27 @@ const BudgetItem: React.FC<BudgetItemProps> = () => {
           />
         </CardBody>
       </Card>
+      {budgetData.map((item, i) => {
+        return (
+          <Card key={i} w={800} m={10}>
+            <CardBody>
+              <Box display={"flex"} flexDir={"row"}>
+                <Text>Home Improvement</Text>
+                <Text ml={"auto"}>item.amount
+                </Text>
+              </Box>
+              <Progress
+                mt={4}
+                value={120}
+                max={150}
+                colorScheme="green"
+                hasStripe
+                borderRadius={4}
+              />
+            </CardBody>
+          </Card>
+        );
+      })}
     </>
   );
 };
