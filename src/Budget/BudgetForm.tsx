@@ -15,6 +15,7 @@ interface BudgetFormProps { }
 
 //TODO: Submit the form data to local storage
 
+
 const BudgetForm: React.FC<BudgetFormProps> = () => {
   return (
     <>

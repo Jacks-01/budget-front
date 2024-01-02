@@ -1,7 +1,9 @@
 import {Box, Card, CardBody, Progress, Text} from "@chakra-ui/react";
 import React from "react";
 
-interface BudgetItemProps { }
+interface BudgetItemProps { 
+
+}
 
 //TODO: Convert hardcoded values to props to dyanmically display the items from local storage.
 
