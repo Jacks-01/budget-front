@@ -1,18 +1,21 @@
 import {Box, Divider, Heading} from "@chakra-ui/react";
 import * as React from "react";
 import BudgetForm from "./BudgetForm";
-import BudgetItem from "./BudgetItem";
+import BudgetItemCard from "./BudgetItemCard";
 import {fetchLocalStorageData} from "../Helpers/Helpers";
-import {useLoaderData} from "react-router-dom";
+import {useActionData, useFetcher, useLoaderData} from "react-router-dom";
+import {BudgetItem} from "../Types";
 
 //TODO: Add dynamic stat trackers at the top of the page for: total budgeted, remaining, spent so far.
 
 export const budgetLoader = () => {
-  const budgetData: object[] = fetchLocalStorageData("Budget");
-  console.log("this is our budget:", budgetData);
-  return {budgetData};
+  const budgetData: Array<BudgetItem> = fetchLocalStorageData("Budget");
+  console.log("budgetLoader data:", budgetData);
+  return budgetData;
 };
 
+
+//* Handles the form submissions and updates local storage
 export const budgetAction = async ({request}) => {
   const data = await request.formData();
   const budgetItem = {
@@ -34,17 +37,38 @@ export const budgetAction = async ({request}) => {
     );
   }
 
-  return data;
+  return budgetItem;
 };
 
 const Budget: React.FC = () => {
-  const {budgetData} = useLoaderData();
-  const [budget, setBudget] = React.useState<Array<object>>([]);
+  const budgetData = useLoaderData() as Array<BudgetItem>;
+  const actionData = useActionData() as BudgetItem;
+  const [budget, setBudget] = React.useState<Array<BudgetItem>>(budgetData);
   // setBudget(budgetData);
 
   React.useEffect(() => {
-    setBudget(budgetData);
-  });
+    console.log("actionData", actionData);
+    //* When the form is submitted, use the action data to update state
+    //! Known bug - hot reload will keep updating state with the previous value. Not major enough to fix right now.
+    if (actionData && actionData.category.length > 0) {
+      setBudget([...budget, actionData]);
+    }
+  }, [actionData]);
+
+  const removeItem = (category: string): void => {
+    const currentBudgetItems: BudgetItem[] = fetchLocalStorageData("Budget");
+    console.log("item to delete:", category);
+    console.log("budget items before removal:", currentBudgetItems);
+
+    const filteredBudgetItems = currentBudgetItems.filter(
+      budgetItem => budgetItem.category !== category,
+    );
+    console.log("budget items after removal:", filteredBudgetItems);
+
+    localStorage.setItem("Budget", JSON.stringify(filteredBudgetItems));
+    setBudget(filteredBudgetItems);
+  };
+
   return (
     <>
       <Box width={500} m={10}>
@@ -53,7 +77,7 @@ const Budget: React.FC = () => {
 
       <Divider />
 
-      <BudgetItem budgetData={budget} />
+      <BudgetItemCard budgetData={budget} removeItem={removeItem} />
     </>
   );
 };

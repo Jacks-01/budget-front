@@ -1,5 +1,5 @@
 //* a single item that gets added when the budget form is submitted
-export type BudgetItemData = {
+export type BudgetItem = {
     category: string,
     amount: string
 }
