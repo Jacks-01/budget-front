@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import {usePlaidLink, PlaidLinkOnSuccess} from "react-plaid-link";
 import {Button} from "@chakra-ui/button";
+import {RepeatIcon} from "@chakra-ui/icons";
 
 const SERVER = import.meta.env.VITE_SERVER;
 
@@ -45,11 +46,14 @@ const Link: React.FC = () => {
 
   return (
     <>
-      <Button onClick={() => open()} disabled={!ready}>
+      <Button m={4} onClick={() => open()} disabled={!ready}>
         Connect a bank account
       </Button>
 
-      <Button onClick={() => retryPublicToken(publicToken)}> retry </Button>
+      <Button title="Retry" onClick={() => retryPublicToken(publicToken)}>
+        {" "}
+        <RepeatIcon />{" "}
+      </Button>
     </>
   );
 };
