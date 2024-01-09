@@ -46,4 +46,23 @@ export const filterObjectsByDateRange = (data: Transaction[], startDate:Date , e
       const itemDate = new Date(item.date);
       return itemDate >= startDate && itemDate <= endDate;
     });
-  }
+}
+
+export const calculateSpending = (transactions: Transaction[], interval: string) => {
+
+  //
+
+}
+export const calculateIncome = (transactions: Transaction[], interval: string) => {
+
+  //
+  
+  let income = 0;
+
+   transactions.forEach(transaction => {
+    if (transaction.amount < 0) {
+      income + (transaction.amount * -1);
+    }
+  });
+
+}

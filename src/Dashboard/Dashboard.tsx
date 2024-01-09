@@ -41,6 +41,8 @@ const Dashboard: React.FC = () => {
   const [transactions, setTransactions] = React.useState<Array<Transaction>>(
     [],
   );
+  const [spendingSummary, setSpendingSummary] = React.useState()
+  const [incomeSummary, setIncomeSummary] = React.useState()
 
   //* When the page loads, use the loader data to initialize state
   React.useEffect(() => {
