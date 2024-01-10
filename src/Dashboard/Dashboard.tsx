@@ -3,6 +3,8 @@ import PieChart from "./PieChart";
 import {fetchLocalStorageData} from "../Helpers/Helpers";
 import {useLoaderData} from "react-router-dom";
 import {
+  calculateIncome,
+  calculateSpending,
   filterObjectsByDateRange,
   formatTransactionData,
   summarizeTransactionData,
@@ -41,13 +43,15 @@ const Dashboard: React.FC = () => {
   const [transactions, setTransactions] = React.useState<Array<Transaction>>(
     [],
   );
-  const [spendingSummary, setSpendingSummary] = React.useState()
-  const [incomeSummary, setIncomeSummary] = React.useState()
+  const [spendingSummary, setSpendingSummary] = React.useState<number>(0);
+  const [incomeSummary, setIncomeSummary] = React.useState<number>(0);
 
   //* When the page loads, use the loader data to initialize state
   React.useEffect(() => {
     setPieData(summarizedTransactionData);
     setTransactions(transactionData);
+    setIncomeSummary(calculateIncome(transactionData));
+    setSpendingSummary(calculateSpending(transactionData));
   }, []);
 
   //* Filters the transaction data, then reformats and summarizes
@@ -88,9 +92,9 @@ const Dashboard: React.FC = () => {
           <StatGroup gap={30} width={400} textColor={"black"}>
             <Stat p={4} bgColor={"green.100"} borderRadius={12}>
               <StatLabel>
-                <Text fontSize={16}>Wk. Spending</Text>
+                <Text fontSize={16}>Income</Text>
               </StatLabel>
-              <StatNumber>$780.25</StatNumber>
+              <StatNumber>${incomeSummary}</StatNumber>
               <StatHelpText fontSize={16}>
                 <StatArrow type="increase" />
                 23.36%
@@ -99,9 +103,9 @@ const Dashboard: React.FC = () => {
 
             <Stat p={4} bgColor={"red.100"} borderRadius={12}>
               <StatLabel>
-                <Text fontSize={16}>VS Last Wk.</Text>
+                <Text fontSize={16}>Spending</Text>
               </StatLabel>
-              <StatNumber> $-104.80</StatNumber>
+              <StatNumber> ${spendingSummary}</StatNumber>
               <StatHelpText fontSize={16}>
                 <StatArrow type="decrease" />
                 19.31%

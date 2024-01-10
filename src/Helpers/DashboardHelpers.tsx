@@ -48,21 +48,33 @@ export const filterObjectsByDateRange = (data: Transaction[], startDate:Date , e
     });
 }
 
-export const calculateSpending = (transactions: Transaction[], interval: string) => {
+export const calculateSpending = (transactions: Transaction[]): number => {
 
   //
 
+  let spending: number = 0;
+
+  transactions.forEach(transaction => {
+   if (transaction.amount > 0) {
+     spending -= Math.abs(transaction.amount);
+   }
+  });
+
+  return spending
+
 }
-export const calculateIncome = (transactions: Transaction[], interval: string) => {
+export const calculateIncome = (transactions: Transaction[]): number => {
 
   //
   
-  let income = 0;
+  let income: number = 0;
 
    transactions.forEach(transaction => {
     if (transaction.amount < 0) {
-      income + (transaction.amount * -1);
+      income += Math.abs(transaction.amount);
     }
-  });
+   });
+  
+  return income;
 
 }
