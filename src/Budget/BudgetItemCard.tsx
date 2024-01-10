@@ -28,7 +28,7 @@ const BudgetItemCard: React.FC<BudgetItemCardProps> = ({ budgetData, removeItem 
     <>
       {budgetData.length > 0 && budgetData.map((item, i) => {
         return (
-          <Card key={i} w={800} m={10}>
+          <Card key={i} minW={500}>
             <CardBody>
               <Box display={"flex"} flexDir={"row"}>
                 <DeleteIcon color={'red.400'} mr={2} mt={1} onClick={() => removeBudgetItem(item.category)}/>

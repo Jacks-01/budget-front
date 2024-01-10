@@ -1,4 +1,13 @@
-import {Box, Divider, Heading} from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Divider,
+  Flex,
+  HStack,
+  Heading,
+  Stack,
+  VStack,
+} from "@chakra-ui/react";
 import * as React from "react";
 import BudgetForm from "./BudgetForm";
 import BudgetItemCard from "./BudgetItemCard";
@@ -13,7 +22,6 @@ export const budgetLoader = () => {
   console.log("budgetLoader data:", budgetData);
   return budgetData;
 };
-
 
 //* Handles the form submissions and updates local storage
 export const budgetAction = async ({request}) => {
@@ -77,7 +85,19 @@ const Budget: React.FC = () => {
 
       <Divider />
 
-      <BudgetItemCard budgetData={budget} removeItem={removeItem} />
+      <Center justifyContent={"space-around"} m={"auto"} mt={2}>
+        <Heading>Variable</Heading>
+        <Heading>Fixed</Heading>
+      </Center>
+      <Center justifyContent={"space-evenly"} width='auto' height={'500'} overflowY='scroll' p={10}>
+        <Flex direction='column' justifyContent='space-evenly' align='center' gap={6} margin='auto'>
+          <BudgetItemCard budgetData={budget} removeItem={removeItem} />
+        </Flex>
+        <Divider orientation="vertical" />
+          <Flex direction='column' justifyContent='space-evenly' align='center' gap={6} margin='auto'>
+              <BudgetItemCard budgetData={budget} removeItem={removeItem}/>
+          </Flex>
+      </Center>
     </>
   );
 };
