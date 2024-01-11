@@ -18,20 +18,10 @@ const Transactions: React.FC = () => {
     [],
   );
 
-  const getAllTransactions = async () => {
-    const localTransactions: string | null =
-    localStorage.getItem("Transaction Data");
-    //* If there is transaction data in local storage, grab it
-    if (localTransactions) {
-      const parsedTransactions: Array<Transaction> =
-        JSON.parse(localTransactions);
-      setTransactions(parsedTransactions);
-      return;
-    }
-
-    //* Otherwise make a request to the server, then stash it in local storage
+  //* calls the API manually to refresh transaction data
+  const forceRefreshTransactions = async () => {
     const response = await axios.get(`${SERVER}/transactions/get`);
-    console.log("transactions yo:", response.data);
+    console.log("transactions returned from the server:", response.data);
     setTransactions(response.data);
     localStorage.setItem("Transaction Data", JSON.stringify(response.data));
   };
@@ -39,7 +29,9 @@ const Transactions: React.FC = () => {
   return (
     <>
       <h1>Transactions Page</h1>
-      <Button onClick={() => getAllTransactions()}>get transactions</Button>
+      <Button onClick={() => forceRefreshTransactions()}>
+        get transactions
+      </Button>
       {transactionData.length > 0 && (
         <TransactionsGrid transactions={transactionData} />
       )}
