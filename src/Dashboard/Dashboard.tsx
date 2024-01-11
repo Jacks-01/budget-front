@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
     setPieData(updatedPie);
   };
 
-  //* Resets state back to its initial data
+  //* Resets state back to its initial state
   const resetFilter = () => {
     setTransactions(transactionData);
     setPieData(summarizedTransactionData);

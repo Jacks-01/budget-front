@@ -32,7 +32,6 @@ export const budgetAction = async ({request}) => {
   };
 
   const localStorageBudget = fetchLocalStorageData("Budget");
-  console.log("ls budget:", localStorageBudget);
 
   if (Object.keys(localStorageBudget).length === 0) {
     localStorage.setItem("Budget", JSON.stringify([budgetItem]));
@@ -52,7 +51,6 @@ const Budget: React.FC = () => {
   const budgetData = useLoaderData() as Array<BudgetItem>;
   const actionData = useActionData() as BudgetItem;
   const [budget, setBudget] = React.useState<Array<BudgetItem>>(budgetData);
-  // setBudget(budgetData);
 
   React.useEffect(() => {
     console.log("actionData", actionData);
