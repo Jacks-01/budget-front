@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+"use client"
+import React from "react"
 import {
   Box,
   Flex,
@@ -16,13 +16,17 @@ import {
   Stack,
   useColorMode,
   Center,
-} from "@chakra-ui/react";
-import {MoonIcon, SunIcon} from "@chakra-ui/icons";
-import {Link} from "react-router-dom";
+} from "@chakra-ui/react"
+import {MoonIcon, SunIcon} from "@chakra-ui/icons"
+import {Link} from "react-router-dom"
+import {useAuth0} from "@auth0/auth0-react"
+import LoginButton from "../Auth0/Login"
+import LogoutButton from "../Auth0/Logout"
 
 export default function Nav() {
-  const {colorMode, toggleColorMode} = useColorMode();
-  const {isOpen, onOpen, onClose} = useDisclosure();
+  const {colorMode, toggleColorMode} = useColorMode()
+  const {isOpen, onOpen, onClose} = useDisclosure()
+  const {user, isAuthenticated} = useAuth0()
   return (
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -60,7 +64,11 @@ export default function Nav() {
                   minW={0}>
                   <Avatar
                     size={"sm"}
-                    src={"https://avatars.dicebear.com/api/male/username.svg"}
+                    src={
+                      isAuthenticated
+                        ? user?.picture
+                        : "https://api.dicebear.com/7.x/fun-emoji/svg"
+                    }
                   />
                 </MenuButton>
                 <MenuList alignItems={"center"}>
@@ -68,19 +76,25 @@ export default function Nav() {
                   <Center>
                     <Avatar
                       size={"2xl"}
-                      src={"https://avatars.dicebear.com/api/male/username.svg"}
+                      src={
+                        isAuthenticated
+                          ? user?.picture
+                          : "https://api.dicebear.com/7.x/fun-emoji/svg"
+                      }
                     />
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>{isAuthenticated ? user?.name : "Username"}</p>
                   </Center>
                   <br />
                   <MenuDivider />
                   <MenuItem>
                     <Link to="/account">Account Settings</Link>
                   </MenuItem>
-                  <MenuItem>Logout</MenuItem>
+                  <MenuItem>
+                    {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+                  </MenuItem>
                 </MenuList>
               </Menu>
             </Stack>
@@ -88,5 +102,5 @@ export default function Nav() {
         </Flex>
       </Box>
     </>
-  );
+  )
 }
