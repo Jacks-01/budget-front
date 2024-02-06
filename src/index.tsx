@@ -22,9 +22,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <Auth0Provider
       domain={DOMAIN}
       clientId={CLIENT_ID}
+      audience={'http://localhost:5173'}
       authorizationParams={{
         redirect_uri: window.location.origin,
-      }}>
+      }}
+   >
       <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>

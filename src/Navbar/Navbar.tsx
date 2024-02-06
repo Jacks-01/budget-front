@@ -26,7 +26,9 @@ import LogoutButton from "../Auth0/Logout"
 export default function Nav() {
   const {colorMode, toggleColorMode} = useColorMode()
   const {isOpen, onOpen, onClose} = useDisclosure()
-  const {user, isAuthenticated} = useAuth0()
+  const { user, isAuthenticated } = useAuth0()
+  
+  
   return (
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
