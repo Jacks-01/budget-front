@@ -9,8 +9,10 @@ const Home: React.FC = () => {
   const testApi = async () => {
     try {
       const token = await getAccessTokenSilently()
-      const response = await axios.get("http://localhost:8000/budget/create", {
-        headers: {Authorization: `Bearer ${token}`},
+      const response = await axios.post("http://localhost:8000/budget/create", {
+        email: user?.email
+      }, {
+        headers: { Authorization: `Bearer ${token}` }, 
       })
 
       console.log(response.data)
